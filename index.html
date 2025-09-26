@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PAYMENT BY RAFFSTR</title>
+  <meta name="description" content="Payment page - PAYMENT BY RAFFSTR (Dana & GoPay). Hubungi via WhatsApp setelah transfer." />
+  <style>
+    :root{
+      --bg:#0b0b0b;      /* almost black */
+      --card:#121212;
+      --accent:#e21b1b;  /* red */
+      --muted:#999;
+      --glass: rgba(255,255,255,0.04);
+      --success:#25d366;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg) 0%, #070707 100%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+    }
+
+    .container{
+      width:100%;
+      max-width:920px;
+      background:linear-gradient(180deg,var(--card), #0c0c0c);
+      border-radius:18px;
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .logo{
+      width:72px;
+      height:72px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),#8f0000);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#fff;
+      box-shadow: 0 6px 18px rgba(226,27,27,0.18);
+      flex:0 0 72px;
+    }
+
+    .title{
+      display:flex;
+      flex-direction:column;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:0.6px;
+      color:#fff;
+    }
+    .title p{ margin:4px 0 0 0; color:var(--muted); font-size:13px }
+
+    .note{
+      margin:14px 0 22px 0;
+      padding:12px 14px;
+      background:var(--glass);
+      border-radius:10px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .badge{
+      width:64px;
+      height:64px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 64px;
+      background:rgba(255,255,255,0.03);
+      flex-direction:column;
+    }
+
+    .badge svg{ width:40px; height:40px; }
+
+    .meta{
+      flex:1;
+      min-width:0;
+    }
+    .meta .method{
+      font-weight:700;
+      color:#fff;
+      font-size:16px;
+    }
+    .meta .number{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:15px;
+      letter-spacing:0.6px;
+    }
+    .meta .label{
+      margin-top:6px;
+      color:#ffbdbd;
+      font-size:13px;
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .btn{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:14px;
+      transition:all .14s ease;
+    }
+
+    .btn:active{ transform:translateY(1px) }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),#b40c0c);
+      border:none;
+      box-shadow: 0 8px 22px rgba(226,27,27,0.15);
+    }
+    .btn.ghost{
+      background:transparent;
+      border:1px dashed rgba(255,255,255,0.04);
+      color:var(--muted);
+    }
+
+    .wa{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:18px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .wa .wa-text{ color:var(--muted) }
+    .wa a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#fff;
+    }
+
+    .whatsapp-btn{
+      background: linear-gradient(90deg,var(--success), #0dbf55);
+      padding:10px 14px;
+      border-radius:10px;
+      color:#031d12;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:none;
+      cursor:pointer;
+      box-shadow: 0 8px 20px rgba(37,211,102,0.12);
+    }
+
+    .small{ font-size:13px; color:var(--muted) }
+
+    /* responsive */
+    @media (max-width:720px){
+      .grid{ grid-template-columns: 1fr; }
+      .title h1{ font-size:18px }
+      .logo{ width:56px; height:56px; flex:0 0 56px }
+    }
+
+    /* toast */
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#111;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+      display:none;
+    }
+    .toast.show{ display:block; animation: pop .28s ease; }
+    @keyframes pop{ from{ transform: translateY(6px); opacity:0 } to{ transform:none; opacity:1 } }
+
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-labelledby="main-title">
+    <header>
+      <div class="logo" aria-hidden="true">
+        RAFF<br><span style="font-size:11px;opacity:0.92">STR</span>
+      </div>
+      <div class="title">
+        <h1 id="main-title">PAYMENT BY RAFFSTR</h1>
+        <p class="small">Transfer & konfirmasi — Pilih metode di bawah lalu hubungi WA.</p>
+      </div>
+    </header>
+
+    <div class="note">
+      <strong>Catatan:</strong> Setelah transfer silahkan hubungi WhatsApp yang tersedia di bawah untuk konfirmasi pembayaran.
+    </div>
+
+    <section class="grid" aria-label="Metode pembayaran">
+      <!-- DANA -->
+      <article class="card" aria-labelledby="dana-title">
+        <div class="badge" aria-hidden="true">
+          <!-- simple wallet svg -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="5" width="20" height="14" rx="3" fill="#fff" opacity="0.06"/>
+            <path d="M7 9h10" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="17.5" cy="12" r="1.6" fill="#fff" opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <div id="dana-title" class="method">DANA</div>
+          <div class="number" id="dana-number">083867468118</div>
+          <div class="label">N/A : Lip</div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" onclick="copyToClipboard('083867468118')">Salin</button>
+          <button class="btn primary" onclick="copyAndShow('083867468118')">Salin & Konfirmasi</button>
+        </div>
+      </article>
+
+      <!-- GOPAY -->
+      <article class="card" aria-labelledby="gopay-title">
+        <div class="badge" aria-hidden="true" style="background:linear-gradient(90deg,#111,#0a0a0a)">
+          <!-- gopay-like icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="5" width="20" height="14" rx="3" fill="#fff" opacity="0.03"/>
+            <path d="M7 9h10" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7 12h8" stroke="#fff" stroke-opacity="0.7" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <div id="gopay-title" class="method">GOPAY</div>
+          <div class="number" id="gopay-number">083893476377</div>
+          <div class="label">N/A : RAFFSTR</div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" onclick="copyToClipboard('083893476377')">Salin</button>
+          <button class="btn primary" onclick="copyAndShow('083893476377')">Salin & Konfirmasi</button>
+        </div>
+      </article>
+    </section>
+
+    <div class="wa" role="region" aria-label="Hubungi via WhatsApp">
+      <div class="wa-text">
+        <div class="small">KALO UDH TRANSFER SILAHKAN HUBUNGI WA YG DI BAWAH</div>
+        <div style="margin-top:8px; font-weight:700;">Kontak WA: +62 838-9157-1261</div>
+      </div>
+
+      <div>
+        <!-- WA link (wa.me) -->
+        <a class="whatsapp-btn" id="wa-link" href="https://wa.me/6283891571261" target="_blank" rel="noopener noreferrer">
+          <!-- whatsapp svg -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.5 3.5c-1.9-1.9-4.5-2.6-7-2.2-4.2.7-7.5 4.1-8.1 8.2-.4 2.5.2 5.1 2.1 7L3 21l4.2-1.1c1.8 1 3.9 1.1 6 .3 4.1-1.4 6.8-5.4 6.1-9.7-.4-2.5-1.9-4.6-3.8-6.2z" fill="#fff" opacity="0.07"/>
+            <path d="M17.2 14.1c-.3-.1-1.9-.9-2.2-1-.3-.1-.5-.1-.7.1-.3.3-1.4 1-1.7 1.1-.3.1-.5.1-.8-.1-.3-.2-1.2-.8-2.2-1.7-.8-.8-1.3-1.7-1.5-2-.2-.3 0-.5.1-.7.1-.3.1-.5.2-.8.1-.3.1-.7-.1-1-.2-.3-.7-.8-1-1.1-.3-.3-.8-.6-1.2-.7-.4-.1-.8.1-1.1.3-.3.2-.9.6-1.4 1.1-.5.5-1 1.2-1 2.3 0 1.2.6 2.8 1.8 4.3 1.2 1.5 3.2 3.7 6.3 4.9 2.1.8 3.7.5 4.9.4 1.1-.1 3.5-1.4 4-2.8.6-1.4.6-2.6.4-2.9-.2-.3-.9-.5-1.2-.6z" fill="#fff"/>
+          </svg>
+          Hubungi via WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;" class="small">Link WA: <a href="https://wa.me/6283891571261" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none">wa.me/6283891571261</a></div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Disalin ke clipboard</div>
+
+  <script>
+    // Copy to clipboard (simple)
+    function copyToClipboard(text){
+      if(!navigator.clipboard){
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); showToast('Disalin: ' + text); } catch(e){ alert('Gagal menyalin. Silakan salin manual: ' + text) }
+        ta.remove();
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Disalin: ' + text);
+      }, () => {
+        alert('Gagal menyalin. Silakan salin manual: ' + text)
+      });
+    }
+
+    // copy + show toast + redirect to WA (for konfirmasi)
+    function copyAndShow(text){
+      copyToClipboard(text);
+      // open WA with prefilled message (optional)
+      const waNumber = '6283891571261';
+      const prefill = encodeURIComponent('Halo, saya sudah transfer ke nomor ' + text + ' — mohon konfirmasi. Terima kasih.');
+      // open new tab to WA (let user continue)
+      window.open('https://wa.me/' + waNumber + '?text=' + prefill, '_blank', 'noopener');
+    }
+
+    // toast helper
+    let toastTimer = null;
+    function showToast(message){
+      const t = document.getElementById('toast');
+      t.textContent = message;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> t.classList.remove('show'), 2800);
+    }
+
+    // Accessibility: allow keyboard copy when focused and pressing Enter
+    document.addEventListener('click', function(ev){
+      // handled via inline onclick for simplicity
+    });
+
+    // Optional: quick select the number when clicking the number area
+    document.getElementById('dana-number').addEventListener('click', function(){ copyToClipboard(this.textContent.trim()) });
+    document.getElementById('gopay-number').addEventListener('click', function(){ copyToClipboard(this.textContent.trim()) });
+  </script>
+</body>
+</html>
